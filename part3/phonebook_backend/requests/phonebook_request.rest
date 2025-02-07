@@ -1,0 +1,49 @@
+GET http://localhost:3001/api/persons
+###
+GET http://localhost:3001/api/persons/1
+###
+GET http://localhost:3001/api/persons/5
+###
+DELETE http://localhost:3001/api/persons/4
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 6,
+    "name": "Yannan Zhang",
+    "number": "+358 417234832"
+}
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Yannan Zhangggg",
+    "number": "+358 417234832"
+}
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 8,
+    "number": "+358 417234832"
+}
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 9,
+    "name": "test applicant"
+}
+###
+POST http://localhost:3001/api/persons HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 4,
+    "name": "Mary Poppendieck",
+    "number": "39-23-6423122"
+}
