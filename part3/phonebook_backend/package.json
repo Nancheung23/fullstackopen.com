@@ -9,19 +9,29 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf dist && cd ../../part2/phonebook && npm run build && cp -r dist ../../part3/phonebook_backend",
     "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "logs:prod": "heroku logs --tail"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy && flyctl deploy",
+    "logs:prod": "heroku logs --tail",
+    "logs:flyctl": "flyctl logs",
+    "lint": "eslint ."
   },
   "proxy": "http://localhost:3001",
   "author": "Yannan Zhang",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongoose": "^8.10.0",
     "morgan": "^1.10.0",
     "phonebook_backend": "file:"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@flydotio/dockerfile": "^0.7.4",
+    "@stylistic/eslint-plugin": "^3.1.0",
+    "@stylistic/eslint-plugin-js": "^3.1.0",
+    "eslint": "^9.20.0",
+    "globals": "^15.14.0",
     "nodemon": "^3.1.9"
   }
 }

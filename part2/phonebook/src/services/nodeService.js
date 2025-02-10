@@ -1,6 +1,6 @@
 import axios from 'axios';
 // 2.15: Phonebook step7
-const url = 'http://localhost:3001/persons';
+const url = '/api/persons';
 
 const getAll = async () => {
     const res = axios.get(url);

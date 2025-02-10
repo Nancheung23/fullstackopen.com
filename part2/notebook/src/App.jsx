@@ -12,7 +12,7 @@ const App = () => {
   const [newNote, setNewNote] = useState('a new note...');
   // Filtering Displayed Elements
   const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState('some error happened...');
+  const [errorMessage, setErrorMessage] = useState(null);
   // Effect-hooks
   useEffect(() => {
     noteService
@@ -59,7 +59,7 @@ const App = () => {
           `Note '${note.content}' was already removed from server`
         );
         setTimeout(() => {
-          setErrorMessage(null)
+          setErrorMessage(null);
         }, 5000);
         setNotes(notes.filter(n => n.id !== id));
       });

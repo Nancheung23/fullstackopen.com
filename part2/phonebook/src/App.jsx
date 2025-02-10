@@ -17,12 +17,13 @@ const App = () => {
   // 2.11: The Phonebook Step6
   useEffect(() => {
     // 2.16: Phonebook step8
+    // 3.19 *: Phonebook database, step 7
     nodeService
       .getAll()
       .then(initialData => {
         setPersons(initialData);
       })
-      .catch(err => console.log('Error:', err))
+      .catch(error => console.log(error.response.data.error))
   }, [persons]);
 
   const handleNameChange = (event) => {
