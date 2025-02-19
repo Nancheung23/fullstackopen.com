@@ -1,0 +1,13 @@
+###
+GET http://localhost:3001/api/blogs
+
+###
+POST http://localhost:3001/api/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "This is a blog",
+    "content": "blog content"
+}
+###
