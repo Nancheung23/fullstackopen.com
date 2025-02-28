@@ -1,0 +1,5 @@
+###
+GET http://localhost:3001/api/users
+
+###
+DELETE http://localhost:3001/api/users/67c235e07f4df7f08c5743a5

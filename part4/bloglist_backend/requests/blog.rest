@@ -4,10 +4,17 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY3YzIwYmFmNmIyNzE3OTI1NjNkYWUzNCIsImlhdCI6MTc0MDc3NTkxMywiZXhwIjoxNzQwNzc5NTEzfQ.DXvK3bInuBMGr1FBQNFu00NtBEypkSzHP_574tDde-8
 
 {
-    "id": 1,
-    "title": "This is a blog",
-    "content": "blog content"
+    "title": "TEST",
+    "author": "TEST",
+    "url": "http://TEST.html",
+    "likes": 0,
+    "user": "67c20baf6b271792563dae34"
 }
+###
+DELETE http://localhost:3001/api/blogs/67c22bb5e3b2d3de3bf99e2c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY3YzIwYmFmNmIyNzE3OTI1NjNkYWUzNCIsImlhdCI6MTc0MDc3NTkxMywiZXhwIjoxNzQwNzc5NTEzfQ.DXvK3bInuBMGr1FBQNFu00NtBEypkSzHP_574tDde-8
+
 ###
