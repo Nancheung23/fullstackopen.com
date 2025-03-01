@@ -60,7 +60,7 @@ blogRouter.delete('/:id', middleware.jwtValidation, middleware.userExtractor, as
     if (!blog) {
         return res.status(404).json({ error: 'Blog not found' });
     };
-    if (!blog.user || blog.user.toString() !== req.userId) {
+    if (!blog.user || blog.user._id.toString() !== req.userId) {
         return res.status(403).json({ error: 'Unauthorized user' });
     };
     const result = await Blog.findByIdAndDelete(deleteId);
@@ -72,18 +72,14 @@ blogRouter.delete('/:id', middleware.jwtValidation, middleware.userExtractor, as
 blogRouter.patch('/:id', middleware.jwtValidation, middleware.userExtractor, async (req, res) => {
     const updateId = req.params.id;
     const updateBody = req.body;
-    const blog = await Blog.findById(updateId);
-    if (!blog) {
+    const result = await Blog.findByIdAndUpdate(
+        updateId,
+        { $set: updateBody },
+        { new: true, runValidators: true }
+    );
+    if (!result) {
         return res.status(404).json({ error: 'Blog not found' });
     };
-    if (blog.user.toString() !== req.userId) {
-        return res.status(403).json({ error: 'Unauthorized user' });
-    };
-    const result = await Blog.updateOne(
-        { _id: updateId },
-        { $set: updateBody },
-        { new: true }
-    );
     return res.status(200).json(result);
 });
 

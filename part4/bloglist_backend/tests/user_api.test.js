@@ -29,7 +29,7 @@ describe('when there is initially one user in db', () => {
         const newUser = {
             username: 'testUser',
             name: 'testUser',
-            password: 'testPassword'
+            password: 'test'
         };
 
         await api
@@ -65,4 +65,9 @@ describe('when there is initially one user in db', () => {
 
         assert.strictEqual(usersAtEnd.length, usersAtStart.length);
     });
+});
+
+after(async () => {
+    await mongoose.connection.close();
+    await mongoose.disconnect();
 });

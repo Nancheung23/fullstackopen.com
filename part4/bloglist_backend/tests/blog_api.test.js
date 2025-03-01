@@ -1,4 +1,5 @@
 const { test, after, beforeEach, describe } = require('node:test');
+const { server } = require('../index');
 const assert = require('node:assert/strict');
 const Blog = require('../models/blog');
 const User = require('../models/user');
@@ -6,36 +7,40 @@ const helper = require('./test_helper');
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const app = require('../app');
+const { resolve } = require('node:path');
 
 const api = supertest(app);
 
-describe('when there is initially some blogs saved', () => {
-    beforeEach(async () => {
-        await Blog.deleteMany({});
-        await User.deleteMany({});
+beforeEach(async () => {
+    await Blog.deleteMany({});
+    await User.deleteMany({});
 
-        const testUser = {
-            username: "root",
-            name: "Superuser",
-            password: "secret"
-        };
+    const testUser = {
+        username: "test",
+        name: "Superuser",
+        password: "test"
+    };
 
-        const userResponse = await api.post('/api/users').send(testUser);
-        testUser.id = userResponse.body.id;
+    // userCredential
+    const userResponse = await api.post('/api/users').send(testUser);
 
-        const loginResponse = await api.post('/api/login').send({
-            username: testUser.username,
-            password: testUser.password
-        });
+    testUser.id = userResponse.body.userCredential.id;
 
-        global.testToken = loginResponse.body.token;
-        global.testUserId = testUser.id;
-
-        for (const blog of helper.initialBlogs) {
-            let blogObject = new Blog({ ...blog, user: testUser.id });
-            await blogObject.save();
-        }
+    const loginResponse = await api.post('/api/login').send({
+        username: testUser.username,
+        password: testUser.password
     });
+
+    global.testToken = loginResponse.body.token;
+    global.testUserId = testUser.id;
+
+    for (const blog of helper.initialBlogs) {
+        let blogObject = new Blog({ ...blog, user: testUser.id });
+        await blogObject.save();
+    }
+});
+
+describe('when there is initially some blogs saved', () => {
 
     // 4.8: Blog List Tests, step 1
     test('blogs are returned as json', async () => {
@@ -67,8 +72,9 @@ describe('view specific blog', () => {
             .get(`/api/blogs/${blogToView.id}`)
             .expect(200)
             .expect('Content-Type', /application\/json/);
+        const expectedBlog = JSON.parse(JSON.stringify(blogToView));
         // remove buffer
-        assert.deepStrictEqual(resultBlog.body, blogToView);
+        assert.deepStrictEqual(resultBlog.body, expectedBlog);
     });
 
     test('fails with status code 400 id is invalid', async () => {
@@ -165,18 +171,16 @@ describe('deletion of the blog', () => {
     test('a blog can be deleted', async () => {
         const blogAtStart = await helper.blogsInDb();
         const blogToDelete = blogAtStart[blogAtStart.length - 1];
-
         if (!blogToDelete) {
             throw new Error("No blog found for test user!");
-        }
-
-        console.log(blogToDelete);
+        };
 
         await api
             .delete(`/api/blogs/${blogToDelete.id}`)
             .set('Authorization', `Bearer ${global.testToken}`)
             .expect(204);
 
+        // length
         const blogAtEnd = await helper.blogsInDb();
         const titles = blogAtEnd.map(blog => blog.title);
         assert(!titles.includes(blogToDelete.title));
@@ -191,7 +195,8 @@ describe('update blog information', () => {
             title: 'Test Contra-variance',
             author: 'Robert C. Martin',
             url: 'https://blog.cleancoder.com/uncle-bob/2017/10/03/TestContravariance.html',
-            likes: 11
+            likes: 11,
+            user: global.testUserId
         };
         const blogAtStart = await helper.blogsInDb();
         const blogToUpdate = blogAtStart[blogAtStart.length - 1];
@@ -210,4 +215,8 @@ describe('update blog information', () => {
 
 after(async () => {
     await mongoose.connection.close();
+    await mongoose.disconnect();
 });
+
+
+
