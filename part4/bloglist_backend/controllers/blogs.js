@@ -69,7 +69,7 @@ blogRouter.delete('/:id', middleware.jwtValidation, middleware.userExtractor, as
 
 // 4.14 Blog list expansions, step2
 // 4.21 *: Blog List Expansion, step9
-blogRouter.patch('/:id', middleware.jwtValidation, middleware.userExtractor, async (req, res) => {
+blogRouter.put('/:id', middleware.jwtValidation, middleware.userExtractor, async (req, res) => {
     const updateId = req.params.id;
     const updateBody = req.body;
     const result = await Blog.findByIdAndUpdate(

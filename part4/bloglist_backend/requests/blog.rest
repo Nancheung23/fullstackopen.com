@@ -1,10 +1,10 @@
 ###
-GET http://localhost:3001/api/blogs
+GET http://localhost:3003/api/blogs
 
 ###
-POST http://localhost:3001/api/blogs HTTP/1.1
+POST http://localhost:3003/api/blogs HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY3YzIwYmFmNmIyNzE3OTI1NjNkYWUzNCIsImlhdCI6MTc0MDc3NTkxMywiZXhwIjoxNzQwNzc5NTEzfQ.DXvK3bInuBMGr1FBQNFu00NtBEypkSzHP_574tDde-8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY3YzM2YTMyM2JmYTVhZDhlMzZlMzUyMCIsImlhdCI6MTc0MTAyNTYwNCwiZXhwIjoxNzQxMDI5MjA0fQ.iWEnSuWQStbYf7ias4B25fy8wYMxPphf_J1cMIZ-13c
 
 {
     "title": "TEST",
@@ -14,7 +14,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb
     "user": "67c20baf6b271792563dae34"
 }
 ###
-DELETE http://localhost:3001/api/blogs/67c22bb5e3b2d3de3bf99e2c
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY3YzIwYmFmNmIyNzE3OTI1NjNkYWUzNCIsImlhdCI6MTc0MDc3NTkxMywiZXhwIjoxNzQwNzc5NTEzfQ.DXvK3bInuBMGr1FBQNFu00NtBEypkSzHP_574tDde-8
+DELETE http://localhost:3003/api/blogs/67c49fe19883b92f6afd514b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY3YzM2YTMyM2JmYTVhZDhlMzZlMzUyMCIsImlhdCI6MTc0MDkzOTIwOSwiZXhwIjoxNzQwOTQyODA5fQ.rCaluIHxoBgRrK5ToDDkmOZyz1j9GiUYyQKEkigeEpE
 
 ###
+PUT http://localhost:3003/api/blogs/67c4b76b9883b92f6afd52ad
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY3YzM2YTMyM2JmYTVhZDhlMzZlMzUyMCIsImlhdCI6MTc0MTAzMjY2OSwiZXhwIjoxNzQxMDM2MjY5fQ.M2OfLAxRclvbwkWP-N_3oD49Vpbm_TW7yBSz-vu-TWU
+
+{
+    "title": "Canonical string reduction",
+    "author": "Edsger W. Dijkstra",
+    "url": "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
+    "likes": 0,
+    "user": "67c36a323bfa5ad8e36e3520"
+}
